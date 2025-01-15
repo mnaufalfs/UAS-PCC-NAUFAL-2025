@@ -1,0 +1,21 @@
+name: GitHub Actions UAS-PCC-NAUFAL-2025
+run-name: ${{ github.actor }} is Build Docker Image 🚀
+on: [push]
+jobs:
+  Build-Docker-Image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v
+        
+      - name: verifikasi dockerfile ada
+        run : ls -la
+
+      - name: UAS-PCC-NAUFAL-2025
+        run: |
+          docker build -t mnaufalfs/uas-pcc-naufal-2025:latest -f Dockerfile .
+          docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_ACCESSTOKEN}} &&
+          docker push mnaufalfs/uas-pcc-naufal-2025:latest
+          
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
